@@ -1,0 +1,120 @@
+{
+    "id": "8222115557375703692",
+    "title": "Untitled 2019-11-29 15:34",
+    "parties": [
+        {
+            "id": "1722550",
+            "user_id": "3044",
+            "is_author": true,
+            "is_signatory": true,
+            "signatory_role": "signing_party",
+            "fields": [
+                {
+                    "type": "name",
+                    "order": 1,
+                    "value": "Scrive",
+                    "is_obligatory": true,
+                    "should_be_filled_by_sender": true,
+                    "placements": []
+                },
+                {
+                    "type": "name",
+                    "order": 2,
+                    "value": "eSign",
+                    "is_obligatory": true,
+                    "should_be_filled_by_sender": true,
+                    "placements": []
+                },
+                {
+                    "type": "email",
+                    "value": "demo.precisley@precisley.se",
+                    "is_obligatory": true,
+                    "should_be_filled_by_sender": true,
+                    "editable_by_signatory": false,
+                    "placements": []
+                },
+                {
+                    "type": "company",
+                    "value": "DEMO Precisley",
+                    "is_obligatory": false,
+                    "should_be_filled_by_sender": false,
+                    "placements": []
+                },
+                {
+                    "type": "mobile",
+                    "value": "demo.precisley@precisley.se",
+                    "is_obligatory": false,
+                    "should_be_filled_by_sender": false,
+                    "editable_by_signatory": false,
+                    "placements": []
+                }
+            ],
+            "consent_module": null,
+            "sign_order": 1,
+            "sign_time": null,
+            "seen_time": null,
+            "read_invitation_time": null,
+            "rejected_time": null,
+            "rejection_reason": null,
+            "sign_success_redirect_url": null,
+            "reject_redirect_url": null,
+            "email_delivery_status": "unknown",
+            "mobile_delivery_status": "unknown",
+            "confirmation_email_delivery_status": "unknown",
+            "has_authenticated_to_view": false,
+            "csv": null,
+            "delivery_method": "email",
+            "authentication_method_to_view": "standard",
+            "authentication_method_to_view_archived": "standard",
+            "authentication_method_to_sign": "standard",
+            "confirmation_delivery_method": "email",
+            "notification_delivery_method": "none",
+            "allows_highlighting": false,
+            "hide_personal_number": false,
+            "can_forward": false,
+            "attachments": [],
+            "highlighted_pages": [],
+            "api_delivery_url": null
+        }
+    ],
+    "file": null,
+    "sealed_file": null,
+    "author_attachments": [],
+    "ctime": "2019-11-29T15:34:31.52363Z",
+    "mtime": "2019-11-29T15:34:31.52363Z",
+    "timeout_time": null,
+    "auto_remind_time": null,
+    "status": "preparation",
+    "days_to_sign": 90,
+    "days_to_remind": null,
+    "display_options": {
+        "show_header": true,
+        "show_pdf_download": true,
+        "show_reject_option": true,
+        "allow_reject_reason": true,
+        "show_footer": true,
+        "document_is_receipt": false,
+        "show_arrow": true
+    },
+    "invitation_message": "",
+    "confirmation_message": "",
+    "lang": "en",
+    "api_callback_url": null,
+    "object_version": 0,
+    "access_token": "b354b7462c3322c1",
+    "timezone": "Europe/Stockholm",
+    "tags": [],
+    "is_template": false,
+    "is_saved": true,
+    "folder_id": "4527",
+    "is_shared": false,
+    "is_trashed": false,
+    "is_deleted": false,
+    "viewer": {
+        "signatory_id": "1722550",
+        "role": "signatory"
+    },
+    "shareable_link": null,
+    "template_id": null,
+    "from_shareable_link": false
+}
