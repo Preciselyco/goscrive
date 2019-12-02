@@ -23,3 +23,15 @@ func boolToStr(b bool) string {
 	}
 	return "false"
 }
+
+func Bool(value bool) *bool {
+	return &value
+}
+
+func String(value string) *string {
+	return &value
+}
+
+func UInt(value uint64) *uint64 {
+	return &value
+}

@@ -43,6 +43,9 @@ func getClient() *scrive.Client {
 	if err != nil {
 		panic(err)
 	}
+	if v := os.Getenv("TEST_VERBOSE"); v == "true" {
+		cli.Debug = true
+	}
 	return cli
 }
 
@@ -75,5 +78,12 @@ func failIfE(t *testing.T, context string, err error) {
 func failIfScriveE(t *testing.T, context string, err *scrive.ScriveError) {
 	if err != nil {
 		failLog(t, context, err)
+	}
+}
+
+func log(format string, msg string) {
+	tv := os.Getenv("TEST_VERBOSE")
+	if tv == "true" {
+		fmt.Printf(format+"\n", msg)
 	}
 }

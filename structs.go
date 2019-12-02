@@ -168,38 +168,38 @@ const (
 )
 
 type Document struct {
-	ID                  string              `json:"id"`
-	Title               string              `json:"title"`
-	Parties             []*Signatory        `json:"parties"`
-	File                File                `json:"file"`
-	SealedFile          *File               `json:"sealed_file"`
-	AuthorAttachments   []*AuthorAttachment `json:"author_attachments"`
-	CTime               string              `json:"ctime"`
-	MTime               string              `json:"mtime"`
-	TimeoutTime         *string             `json:"timeout_time"`
-	AutoRemindTime      *string             `json:"auto_remind_time"`
-	Status              Status              `json:"status"`
-	DaysToSign          uint32              `json:"days_to_sign"`
-	DaysToRemind        *uint32             `json:"days_to_remind"`
-	DisplayOptions      DisplayOptions      `json:"display_options"`
-	InvitationMessage   string              `json:"invitation_message"`
-	ConfirmationMessage string              `json:"confirmation_message"`
-	Lang                Lang                `json:"lang"`
-	APICallbackURL      *string             `json:"api_callback_url"`
-	ObjectVersion       *uint32             `json:"object_version,omitempty"`
-	AccessToken         string              `json:"access_token"`
-	Timezone            string              `json:"timezone"`
-	Tags                []*Tag              `json:"tags"`
-	IsTemplate          bool                `json:"is_template"`
-	IsSaved             bool                `json:"is_saved"`
-	FolderID            *string             `json:"folder_id"`
-	IsShared            bool                `json:"is_shared"`
-	IsTrashed           bool                `json:"is_trashed"`
-	IsDeleted           bool                `json:"is_deleted"`
-	Viewer              *Viewer             `json:"viewer"`
-	ShareableLink       *string             `json:"shareable_link"`
-	TemplateID          *string             `json:"template_id"`
-	FromShareableLink   bool                `json:"from_shareable_link"`
+	ID                  *string              `json:"id,omitempty"`
+	Title               *string              `json:"title,omitempty"`
+	Parties             *[]*Signatory        `json:"parties,omitempty"`
+	File                *File                `json:"file,omitempty"`
+	SealedFile          *File                `json:"sealed_file,omitempty"`
+	AuthorAttachments   *[]*AuthorAttachment `json:"author_attachments,omitempty"`
+	CTime               *string              `json:"ctime,omitempty"`
+	MTime               *string              `json:"mtime,omitempty"`
+	TimeoutTime         *string              `json:"timeout_time,omitempty"`
+	AutoRemindTime      *string              `json:"auto_remind_time,omitempty"`
+	Status              *Status              `json:"status,omitempty"`
+	DaysToSign          *uint32              `json:"days_to_sign,omitempty"`
+	DaysToRemind        *uint32              `json:"days_to_remind,omitempty"`
+	DisplayOptions      *DisplayOptions      `json:"display_options,omitempty"`
+	InvitationMessage   *string              `json:"invitation_message,omitempty"`
+	ConfirmationMessage *string              `json:"confirmation_message,omitempty"`
+	Lang                *Lang                `json:"lang,omitempty"`
+	APICallbackURL      *string              `json:"api_callback_url,omitempty"`
+	ObjectVersion       *uint64              `json:"object_version,omitempty"`
+	AccessToken         *string              `json:"access_token,omitempty"`
+	Timezone            *string              `json:"timezone,omitempty"`
+	Tags                *[]*Tag              `json:"tags,omitempty"`
+	IsTemplate          *bool                `json:"is_template,omitempty"`
+	IsSaved             *bool                `json:"is_saved,omitempty"`
+	FolderID            *string              `json:"folder_id,omitempty"`
+	IsShared            *bool                `json:"is_shared,omitempty"`
+	IsTrashed           *bool                `json:"is_trashed,omitempty"`
+	IsDeleted           *bool                `json:"is_deleted,omitempty"`
+	Viewer              *Viewer              `json:"viewer,omitempty"`
+	ShareableLink       *string              `json:"shareable_link,omitempty"`
+	TemplateID          *string              `json:"template_id,omitempty"`
+	FromShareableLink   *bool                `json:"from_shareable_link,omitempty"`
 }
 
 type Viewer struct {
@@ -213,13 +213,13 @@ type Tag struct {
 }
 
 type DisplayOptions struct {
-	ShowHeader        bool `json:"show_header"`
-	ShowPDFDownload   bool `json:"show_pdf_download"`
-	ShowRejectOption  bool `json:"show_reject_option"`
-	AllowRejectReason bool `json:"allow_reject_reason"`
-	ShowFooter        bool `json:"show_footer"`
-	DocumentIsReceipt bool `json:"document_is_receipt"`
-	ShowArrow         bool `json:"show_arrow"`
+	ShowHeader        *bool `json:"show_header,omitempty"`
+	ShowPDFDownload   *bool `json:"show_pdf_download,omitempty"`
+	ShowRejectOption  *bool `json:"show_reject_option,omitempty"`
+	AllowRejectReason *bool `json:"allow_reject_reason,omitempty"`
+	ShowFooter        *bool `json:"show_footer,omitempty"`
+	DocumentIsReceipt *bool `json:"document_is_receipt,omitempty"`
+	ShowArrow         *bool `json:"show_arrow,omitempty"`
 }
 
 type AuthorAttachment struct {
@@ -230,38 +230,38 @@ type AuthorAttachment struct {
 }
 
 type Signatory struct {
-	ID                                 string                             `json:"id"`
-	UserID                             *string                            `json:"user_id"`
-	IsAuthor                           bool                               `json:"is_author"`
-	IsSignatory                        bool                               `json:"is_signatory"`
-	SignatoryRole                      SignatoryRole                      `json:"signatory_role"`
-	Fields                             []*SignatoryField                  `json:"fields"`
-	ConsentModule                      *ConsentModule                     `json:"consent_module"`
-	SignOrder                          uint32                             `json:"sign_order"`
-	SignTime                           *string                            `json:"sign_time,omitempty"`
-	SeenTime                           *string                            `json:"seen_time,omitempty"`
-	ReadInvitationTime                 *string                            `json:"read_invitation_time,omitempty"`
-	RejectedTime                       *string                            `json:"rejected_time,omitempty"`
-	RejectionReason                    *string                            `json:"rejection_reason,omitempty"`
-	SignSuccessRedirectURL             *string                            `json:"sign_success_redirect_url,omitempty"`
-	RejectRedirectURL                  *string                            `json:"reject_redirect_url,omitempty"`
-	EmailDeliveryStatus                EmailDeliveryStatus                `json:"email_delivery_status"`
-	MobileDeliveryStatus               MobileDeliveryStatus               `json:"mobile_delivery_status"`
-	ConfirmationEmailDeliveryStatus    ConfirmationEmailDeliveryStatus    `json:"confirmation_email_delivery_status"`
-	HasAuthenticatedToView             bool                               `json:"has_authenticated_to_view"`
-	CSV                                *[]string                          `json:"csv,omitempty"`
-	DeliveryMethod                     DeliveryMethod                     `json:"delivery_method"`
-	AuthenticationMethodToView         AuthenticationMethodToView         `json:"authentication_method_to_view"`
-	AuthenticationMethodToViewArchived AuthenticationMethodToViewArchived `json:"authentication_method_to_view_archived"`
-	AuthenticationMethodToSign         AuthenticationMethodToSign         `json:"authentication_method_to_sign"`
-	ConfirmationDeliveryMethod         ConfirmationDeliveryMethod         `json:"confirmation_delivery_method"`
-	NotificationDeliveryMethod         NotificationDeliveryMethod         `json:"notification_delivery_method"`
-	AllowsHighlighting                 bool                               `json:"allows_highlighting"`
-	HidePersonalNumber                 bool                               `json:"hide_personal_number"`
-	CanForward                         bool                               `json:"can_forward"`
-	Attachments                        *[]*Attachment                     `json:"attachments"`
-	HighlightedPages                   *[]*HighlightedPage                `json:"highlighted_pages"`
-	APIDeliveryURL                     *string                            `json:"api_delivery_url"`
+	ID                                 *string                             `json:"id,omitempty"`
+	UserID                             *string                             `json:"user_id,omitempty"`
+	IsAuthor                           *bool                               `json:"is_author,omitempty"`
+	IsSignatory                        *bool                               `json:"is_signatory,omitempty"`
+	SignatoryRole                      *SignatoryRole                      `json:"signatory_role,omitempty"`
+	Fields                             *[]*SignatoryField                  `json:"fields,omitempty"`
+	ConsentModule                      *ConsentModule                      `json:"consent_module,omitempty"`
+	SignOrder                          *uint32                             `json:"sign_order,omitempty"`
+	SignTime                           *string                             `json:"sign_time,omitempty,omitempty"`
+	SeenTime                           *string                             `json:"seen_time,omitempty,omitempty"`
+	ReadInvitationTime                 *string                             `json:"read_invitation_time,omitempty"`
+	RejectedTime                       *string                             `json:"rejected_time,omitempty,omitempty"`
+	RejectionReason                    *string                             `json:"rejection_reason,omitempty"`
+	SignSuccessRedirectURL             *string                             `json:"sign_success_redirect_url,omitempty"`
+	RejectRedirectURL                  *string                             `json:"reject_redirect_url,omitempty"`
+	EmailDeliveryStatus                *EmailDeliveryStatus                `json:"email_delivery_status,omitempty"`
+	MobileDeliveryStatus               *MobileDeliveryStatus               `json:"mobile_delivery_status,omitempty"`
+	ConfirmationEmailDeliveryStatus    *ConfirmationEmailDeliveryStatus    `json:"confirmation_email_delivery_status,omitempty"`
+	HasAuthenticatedToView             *bool                               `json:"has_authenticated_to_view,omitempty"`
+	CSV                                *[]string                           `json:"csv,omitempty"`
+	DeliveryMethod                     *DeliveryMethod                     `json:"delivery_method,omitempty"`
+	AuthenticationMethodToView         *AuthenticationMethodToView         `json:"authentication_method_to_view,omitempty"`
+	AuthenticationMethodToViewArchived *AuthenticationMethodToViewArchived `json:"authentication_method_to_view_archived,omitempty"`
+	AuthenticationMethodToSign         *AuthenticationMethodToSign         `json:"authentication_method_to_sign,omitempty"`
+	ConfirmationDeliveryMethod         *ConfirmationDeliveryMethod         `json:"confirmation_delivery_method,omitempty"`
+	NotificationDeliveryMethod         *NotificationDeliveryMethod         `json:"notification_delivery_method,omitempty"`
+	AllowsHighlighting                 *bool                               `json:"allows_highlighting,omitempty"`
+	HidePersonalNumber                 *bool                               `json:"hide_personal_number,omitempty"`
+	CanForward                         *bool                               `json:"can_forward,omitempty"`
+	Attachments                        *[]*Attachment                      `json:"attachments,omitempty"`
+	HighlightedPages                   *[]*HighlightedPage                 `json:"highlighted_pages,omitempty"`
+	APIDeliveryURL                     *string                             `json:"api_delivery_url,omitempty"`
 }
 
 type ConsentModule struct {
@@ -381,13 +381,13 @@ type UserGroupSettings struct {
 }
 
 type DataRetentionPolicy struct {
-	IdleDocTimeoutPreparation *uint32 `json:"idle_doc_timeout_preparation"`
-	IdleDocTimeoutClosed      *uint32 `json:"idle_doc_timeout_closed"`
-	IdleDocTimeoutCanceled    *uint32 `json:"idle_doc_timeout_canceled"`
-	IdleDocTimeoutTimedout    *uint32 `json:"idle_doc_timeout_timedout"`
-	IdleDocTimeoutRejected    *uint32 `json:"idle_doc_timeout_rejected"`
-	IdleDocTimeoutError       *uint32 `json:"idle_doc_timeout_error"`
-	ImmediateTrash            *bool   `json:"immediate_trash"`
+	IdleDocTimeoutPreparation *uint64 `json:"idle_doc_timeout_preparation,omitempty"`
+	IdleDocTimeoutClosed      *uint64 `json:"idle_doc_timeout_closed,omitempty"`
+	IdleDocTimeoutCanceled    *uint64 `json:"idle_doc_timeout_canceled,omitempty"`
+	IdleDocTimeoutTimedout    *uint64 `json:"idle_doc_timeout_timedout,omitempty"`
+	IdleDocTimeoutRejected    *uint64 `json:"idle_doc_timeout_rejected,omitempty"`
+	IdleDocTimeoutError       *uint64 `json:"idle_doc_timeout_error,omitempty"`
+	ImmediateTrash            *bool   `json:"immediate_trash,omitempty"`
 }
 
 type ContactDetails struct {
@@ -397,9 +397,40 @@ type ContactDetails struct {
 }
 
 type Address struct {
-	CompanyNumber *string `json:"company_number"`
-	Address       *string `json:"address"`
-	Zip           *string `json:"zip"`
-	City          *string `json:"city"`
-	Country       *string `json:"country"`
+	CompanyNumber *string `json:"company_number,omitempty"`
+	Address       *string `json:"address,omitempty"`
+	Zip           *string `json:"zip,omitempty"`
+	City          *string `json:"city,omitempty"`
+	Country       *string `json:"country,omitempty"`
+}
+
+type HistoryStatus = string
+
+const (
+	HistoryStatusInitiated       HistoryStatus = "initiated"
+	HistoryStatusDraft           HistoryStatus = "draft"
+	HistoryStatusCancelled       HistoryStatus = "cancelled"
+	HistoryStatusRejected        HistoryStatus = "rejected"
+	HistoryStatusTimeouted       HistoryStatus = "timeouted"
+	HistoryStatusProblem         HistoryStatus = "problem"
+	HistoryStatusDeliveryProblem HistoryStatus = "deliveryproblem"
+	HistoryStatusSent            HistoryStatus = "sent"
+	HistoryStatusDelivered       HistoryStatus = "delivered"
+	HistoryStatusRead            HistoryStatus = "read"
+	HistoryStatusOpened          HistoryStatus = "opened"
+	HistoryStatusSigned          HistoryStatus = "signed"
+	HistoryStatusProlonged       HistoryStatus = "prolonged"
+	HistoryStatusSealed          HistoryStatus = "sealed"
+	HistoryStatusExtended        HistoryStatus = "extended"
+)
+
+type HistoryItem struct {
+	Status HistoryStatus `json:"status"`
+	Time   string        `json:"time"`
+	Text   string        `json:"text"`
+	Party  string        `json:"party"`
+}
+
+type DocumentHistory struct {
+	Events []*HistoryItem `json:"events"`
 }
