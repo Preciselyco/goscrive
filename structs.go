@@ -25,7 +25,11 @@ const (
 	verimi          = "verimi"
 )
 
-type SignatoryRole = string
+type strDef interface {
+	strp() *string
+}
+
+type SignatoryRole string
 
 const (
 	SignatoryRoleViewer       SignatoryRole = viewer
@@ -33,7 +37,12 @@ const (
 	SignatoryRoleApprover     SignatoryRole = approver
 )
 
-type EmailDeliveryStatus = string
+func (s SignatoryRole) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type EmailDeliveryStatus string
 
 const (
 	EmailDeliveryStatusUnknown      EmailDeliveryStatus = unknown
@@ -42,7 +51,12 @@ const (
 	EmailDeliveryStatusDeferred     EmailDeliveryStatus = deferred
 )
 
-type ConfirmationEmailDeliveryStatus = string
+func (s EmailDeliveryStatus) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type ConfirmationEmailDeliveryStatus string
 
 const (
 	ConfirmationEmailDeliveryStatusUnknown      ConfirmationEmailDeliveryStatus = unknown
@@ -51,7 +65,12 @@ const (
 	ConfirmationEmailDeliveryStatusDeferred     ConfirmationEmailDeliveryStatus = deferred
 )
 
-type MobileDeliveryStatus = string
+func (s ConfirmationEmailDeliveryStatus) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type MobileDeliveryStatus string
 
 const (
 	MobileDeliveryStatusUnknown      MobileDeliveryStatus = unknown
@@ -60,7 +79,12 @@ const (
 	MobileDeliveryStatusDeferred     MobileDeliveryStatus = deferred
 )
 
-type DeliveryMethod = string
+func (s MobileDeliveryStatus) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type DeliveryMethod string
 
 const (
 	DeliveryMethodEmail       DeliveryMethod = email
@@ -70,7 +94,12 @@ const (
 	DeliveryMethodAPI         DeliveryMethod = api
 )
 
-type AuthenticationMethodToView = string
+func (s DeliveryMethod) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type AuthenticationMethodToView string
 
 const (
 	AuthenticationMethodToViewStandard AuthenticationMethodToView = standard
@@ -82,7 +111,12 @@ const (
 	AuthenticationMethodToViewVerimi   AuthenticationMethodToView = verimi
 )
 
-type AuthenticationMethodToViewArchived = string
+func (s AuthenticationMethodToView) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type AuthenticationMethodToViewArchived string
 
 const (
 	AuthenticationMethodToViewArchivedStandard AuthenticationMethodToViewArchived = standard
@@ -94,7 +128,12 @@ const (
 	AuthenticationMethodToViewArchivedVerimi   AuthenticationMethodToViewArchived = verimi
 )
 
-type AuthenticationMethodToSign = string
+func (s AuthenticationMethodToViewArchived) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type AuthenticationMethodToSign string
 
 const (
 	AuthenticationMethodToSignStandard AuthenticationMethodToSign = standard
@@ -104,7 +143,12 @@ const (
 	AuthenticationMethodToSignDKNemID  AuthenticationMethodToSign = dkNemID
 )
 
-type ConfirmationDeliveryMethod = string
+func (s AuthenticationMethodToSign) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type ConfirmationDeliveryMethod string
 
 const (
 	ConfirmationDeliveryMethodEmail           ConfirmationDeliveryMethod = email
@@ -115,7 +159,12 @@ const (
 	ConfirmationDeliveryMethodNone            ConfirmationDeliveryMethod = none
 )
 
-type NotificationDeliveryMethod = string
+func (s ConfirmationDeliveryMethod) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type NotificationDeliveryMethod string
 
 const (
 	NotificationDeliveryMethodEmail           NotificationDeliveryMethod = email
@@ -126,7 +175,12 @@ const (
 	NotificationDeliveryMethodNone            NotificationDeliveryMethod = none
 )
 
-type Status = string
+func (s NotificationDeliveryMethod) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type Status string
 
 const (
 	StatusPreparation   Status = "preparation"
@@ -138,7 +192,12 @@ const (
 	StatusDocumentError Status = "document_error"
 )
 
-type Lang = string
+func (s Status) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type Lang string
 
 const (
 	LangDA Lang = "da"
@@ -159,13 +218,23 @@ const (
 	LangSV Lang = "sv"
 )
 
-type ViewerRole = string
+func (s Lang) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type ViewerRole string
 
 const (
 	ViewerRoleCompanyShared ViewerRole = "company_shared"
 	ViewerRoleCompanyAdmin  ViewerRole = "company_admin"
 	ViewerRoleSignatory     ViewerRole = "signatory"
 )
+
+func (s ViewerRole) strp() *string {
+	ss := string(s)
+	return &ss
+}
 
 type Document struct {
 	ID                  *string              `json:"id,omitempty"`
@@ -295,7 +364,7 @@ type Attachment struct {
 	FileName    string `json:"file_name"`
 }
 
-type SignatoryFieldType = string
+type SignatoryFieldType string
 
 const (
 	SignatoryFieldTypeName           SignatoryFieldType = "name"
@@ -309,6 +378,11 @@ const (
 	SignatoryFieldTypeRadiogroup     SignatoryFieldType = "radiogroup"
 	SignatoryFieldTypeCustomText     SignatoryFieldType = "text"
 )
+
+func (s SignatoryFieldType) strp() *string {
+	ss := string(s)
+	return &ss
+}
 
 type SignatoryField struct {
 	Type      SignatoryFieldType `json:"type"`
@@ -326,12 +400,17 @@ type SignatoryField struct {
 	CustomValidation       *[]*SignatoryFieldCustomValidation `json:"custom_validation,omitempty"`
 }
 
-type SignatoryFieldPlacementTip = string
+type SignatoryFieldPlacementTip string
 
 const (
 	SignatoryFieldPlacementTipLeft  SignatoryFieldPlacementTip = "left"
 	SignatoryFieldPlacementTipRight SignatoryFieldPlacementTip = "right"
 )
+
+func (s SignatoryFieldPlacementTip) strp() *string {
+	ss := string(s)
+	return &ss
+}
 
 type SignatoryFieldPlacement struct {
 	XRel    float32                          `json:"xrel"`
@@ -404,7 +483,7 @@ type Address struct {
 	Country       *string `json:"country,omitempty"`
 }
 
-type HistoryStatus = string
+type HistoryStatus string
 
 const (
 	HistoryStatusInitiated       HistoryStatus = "initiated"
@@ -424,6 +503,11 @@ const (
 	HistoryStatusExtended        HistoryStatus = "extended"
 )
 
+func (s HistoryStatus) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
 type HistoryItem struct {
 	Status HistoryStatus `json:"status"`
 	Time   string        `json:"time"`
@@ -433,4 +517,99 @@ type HistoryItem struct {
 
 type DocumentHistory struct {
 	Events []*HistoryItem `json:"events"`
+}
+
+type ListSortOrder string
+
+const (
+	ListSortAscending  ListSortOrder = "ascending"
+	ListSortDescending ListSortOrder = "descending"
+)
+
+func (s ListSortOrder) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type ListSortKey string
+
+const (
+	ListSortTitle  ListSortKey = "title"
+	ListSortStatus ListSortKey = "status"
+	ListSortMTime  ListSortKey = "mtime"
+	ListSortAuthor ListSortKey = "author"
+)
+
+func (s ListSortKey) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+type ListSortParam struct {
+	Order  ListSortOrder `json:"order"`
+	SortBy ListSortKey   `json:"sort_by"`
+}
+
+type OAuthAuthorization struct {
+	APIToken     string `json:"apitoken"`
+	APISecret    string `json:"apisecret"`
+	AccessToken  string `json:"accesstoken"`
+	AccessSecret string `json:"accsesssecret"`
+}
+
+type Session struct {
+	SessionID string `json:"session_id"`
+}
+
+type PersonalCredentialsToken struct {
+	LoginToken     string `json:"login_token"`
+	QRCode         string `json:"qr_code"`
+	ExpirationTime string `json:"expiration_time"`
+}
+
+type Setup2FAResponse struct {
+	TwofactorAlive bool    `json:"twofactor_alive"`
+	QRCode         *string `json:"qr_code"`
+}
+
+type Confirm2FAResp struct {
+	TwofactorAlive bool `json:"twofactor_alive"`
+	TotpValid      bool `json:"totp_valid"`
+}
+
+type Disable2FAResp struct {
+	TwofactorAlive bool `json:"twofactor_alive"`
+}
+
+type IsUserDeletableResp struct {
+	Deletable bool    `json:"deletable"`
+	Reason    *string `json:"reason"`
+}
+
+type AccessRoleSource struct {
+	Type string `json:"type"`
+	ID   string `json:"id"`
+}
+
+type AccessRoleTarget struct {
+	Type string `json:"type"`
+	ID   string `json:"id"`
+}
+
+type AccessRoleActions struct {
+	Document          []string `json:"document"`
+	FolderPolicy      []string `json:"folder_policy"`
+	User              []string `json:"user"`
+	UserGroup         []string `json:"user_group"`
+	UserGroupPolicy   []string `json:"user_group_policy"`
+	UserPersonalToken []string `json:"user_personal_token"`
+	UserPolicy        []string `json:"user_policy"`
+}
+
+type AccessRole struct {
+	ID             *string           `json:"id"`
+	IsGenerated    bool              `json:"is_generated"`
+	RoleType       string            `json:"role_type"`
+	Source         AccessRoleSource  `json:"source"`
+	AllowedActions AccessRoleActions `json:"allowed_actions"`
 }

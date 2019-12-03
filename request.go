@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/url"
 )
@@ -22,9 +23,7 @@ type request struct {
 	method         RequestMethod
 	path           string
 	headers        *map[string]string
-	reqBody        []byte
-	respBody       []byte
-	respHeaders    *map[string]string
+	body           []byte
 	expectCode     int
 	out            interface{}
 	binaryResponse bool
@@ -37,13 +36,11 @@ type request struct {
 
 func (c *Client) newRequest(method RequestMethod) *request {
 	return &request{
-		method:      method,
-		headers:     &map[string]string{},
-		reqBody:     make([]byte, 0),
-		respBody:    make([]byte, 0),
-		respHeaders: &map[string]string{},
-		expectCode:  noExpect,
-		_ses:        make([]*ScriveError, 0),
+		method:     method,
+		headers:    &map[string]string{},
+		body:       make([]byte, 0),
+		expectCode: noExpect,
+		_ses:       make([]*ScriveError, 0),
 	}
 }
 
@@ -66,7 +63,7 @@ func (r *request) Header(key, val string) *request {
 }
 
 func (r *request) Body(body []byte) *request {
-	r.reqBody = body
+	r.body = body
 	return r
 }
 
@@ -82,6 +79,12 @@ func (r *request) ExpectBinary(code int) *request {
 	return r
 }
 
+func (r *request) ReadCloser() io.ReadCloser {
+	return ioutil.NopCloser(
+		bytes.NewReader(r.body),
+	)
+}
+
 func (r *request) finalize() *ScriveError {
 	if r.method == methodPOST {
 		if r._mr != nil {
@@ -89,7 +92,7 @@ func (r *request) finalize() *ScriveError {
 				return localError(err)
 			}
 			(*r.headers)["Content-Type"] = r._mr.FormDataContentType()
-			r.reqBody = r._bodyBuf.Bytes()
+			r.body = r._bodyBuf.Bytes()
 		}
 	}
 	return nil
@@ -150,6 +153,13 @@ func (r *request) writeMUInt(field string, value *uint64) *ScriveError {
 		return nil
 	}
 	return r._writeMVal(field, fmt.Sprintf("%d", *value))
+}
+
+func (r *request) writeMStrdef(field string, value strDef) *ScriveError {
+	if value == nil {
+		return nil
+	}
+	return r._writeMVal(field, *(value.strp()))
 }
 
 func (r *request) writeMJSON(field string, obj interface{}) *ScriveError {
@@ -220,13 +230,6 @@ func (r *request) getQuery() string {
 		return ""
 	}
 	return r._qp.Encode()
-}
-
-func (r *request) getRespHeader(key string) string {
-	if r.respHeaders == nil {
-		return ""
-	}
-	return (*r.respHeaders)[key]
 }
 
 func (r *request) anyError(errs ...*ScriveError) *ScriveError {

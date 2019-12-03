@@ -25,14 +25,14 @@ func (c *Client) GetDocumentByShortID(documentID string) (*Document, *ScriveErro
 }
 
 func (c *Client) GetSignLinkQR(documentID, signatoryID string) ([]byte, string, *ScriveError) {
-	req, se := c.gwb(
+	resp, se := c.gwb(
 		fmt.Sprintf("documents/%s/%s/getqrcode", documentID, signatoryID),
 		nil,
 	)
 	if se != nil {
 		return nil, "", se
 	}
-	return req.respBody, req.getRespHeader("content-type"), nil
+	return resp.body, resp.getHeader("content-type"), nil
 }
 
 type GetDocumentListParams struct {
@@ -63,29 +63,29 @@ func (c *Client) GetDocumentList(p GetDocumentListParams) (*GetDocumentsListResp
 }
 
 func (c *Client) GetMainFile(documentID string) ([]byte, *ScriveError) {
-	req, se := c.gwb(
+	resp, se := c.gwb(
 		fmt.Sprintf("documents/%s/files/main/file", documentID),
 		nil,
 	)
 	if se != nil {
 		return nil, se
 	}
-	response := make([]byte, len(req.respBody))
-	copy(response, req.respBody)
+	response := make([]byte, len(resp.body))
+	copy(response, resp.body)
 	return response, nil
 }
 
 func (c *Client) GetRelatedFile(documentID, fileID string) ([]byte, string, *ScriveError) {
-	req, se := c.gwb(
+	resp, se := c.gwb(
 		fmt.Sprintf("documents/%s/files/%s/file", documentID, fileID),
 		nil,
 	)
 	if se != nil {
 		return nil, "", se
 	}
-	response := make([]byte, len(req.respBody))
-	copy(response, req.respBody)
-	return response, req.getRespHeader("content-type"), nil
+	response := make([]byte, len(resp.body))
+	copy(response, resp.body)
+	return response, resp.getHeader("content-type"), nil
 }
 
 func (c *Client) GetDocumentHistory(documentID string) (*DocumentHistory, *ScriveError) {

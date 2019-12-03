@@ -196,7 +196,7 @@ func (c *Client) SetSignatoryAuthenticationToView(p SignatoryAuthenticationToVie
 	_, se := c.pw(
 		fmt.Sprintf("documents/%s/%s/setauthenticationtoview", p.DocumentID, p.SignatoryID),
 		func(req *request) {
-			req.writeMString("authentication_type", &p.AuthenticationMethod)
+			req.writeMStrdef("authentication_type", p.AuthenticationMethod)
 			req.writeMString("personal_number", p.PersonalNumber)
 			req.writeMString("mobile_number", p.MobileNumber)
 			req.writeMUInt("object_version", p.ObjectVersion)
@@ -220,7 +220,7 @@ func (c *Client) SetSignatoryAuthenticationToSign(p SignatoryAuthenticationToSig
 	_, se := c.pw(
 		fmt.Sprintf("documents/%s/%s/setauthenticationtosign", p.DocumentID, p.SignatoryID),
 		func(req *request) {
-			req.writeMString("authentication_type", &p.AuthenticationMethod)
+			req.writeMStrdef("authentication_type", p.AuthenticationMethod)
 			req.writeMString("personal_number", p.PersonalNumber)
 			req.writeMString("mobile_number", p.MobileNumber)
 			req.writeMUInt("object_version", p.ObjectVersion)
@@ -250,4 +250,20 @@ func (c *Client) ChangeSignatoryEmailAndMobile(p ChangeSignatoryEmailAndMobilePa
 		doc,
 	)
 	return doc, se
+}
+
+type ShareTemplatesParams struct {
+	DocumentIDs []string
+	Shared      bool
+}
+
+func (c *Client) SetTemplatesSharing(p ShareTemplatesParams) *ScriveError {
+	_, se := c.pwb(
+		"documents/templates/setsharing",
+		func(req *request) {
+			req.writeMJSON("document_ids", p.DocumentIDs)
+			req.writeMBool("shared", &p.Shared)
+		},
+	)
+	return se
 }
