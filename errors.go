@@ -1,6 +1,10 @@
 package scrive
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/pkg/errors"
+)
 
 type ErrorType = string
 
@@ -52,4 +56,8 @@ func localError(err error) *ScriveError {
 		ErrorMessage: err.Error(),
 		HttpCode:     -1,
 	}
+}
+
+func ScriveErrorToError(e *ScriveError) error {
+	return errors.Errorf("%d %s %s", e.HttpCode, string(e.ErrorType), e.ErrorMessage)
 }
