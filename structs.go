@@ -42,6 +42,10 @@ func (s SignatoryRole) strp() *string {
 	return &ss
 }
 
+func (s SignatoryRole) Ptr() *SignatoryRole {
+	return &s
+}
+
 type EmailDeliveryStatus string
 
 const (
@@ -99,6 +103,10 @@ func (s DeliveryMethod) strp() *string {
 	return &ss
 }
 
+func (s DeliveryMethod) Ptr() *DeliveryMethod {
+	return &s
+}
+
 type AuthenticationMethodToView string
 
 const (
@@ -114,6 +122,10 @@ const (
 func (s AuthenticationMethodToView) strp() *string {
 	ss := string(s)
 	return &ss
+}
+
+func (s AuthenticationMethodToView) Ptr() *AuthenticationMethodToView {
+	return &s
 }
 
 type AuthenticationMethodToViewArchived string
@@ -133,6 +145,10 @@ func (s AuthenticationMethodToViewArchived) strp() *string {
 	return &ss
 }
 
+func (s AuthenticationMethodToViewArchived) Ptr() *AuthenticationMethodToViewArchived {
+	return &s
+}
+
 type AuthenticationMethodToSign string
 
 const (
@@ -146,6 +162,10 @@ const (
 func (s AuthenticationMethodToSign) strp() *string {
 	ss := string(s)
 	return &ss
+}
+
+func (s AuthenticationMethodToSign) Ptr() *AuthenticationMethodToSign {
+	return &s
 }
 
 type ConfirmationDeliveryMethod string
@@ -164,6 +184,10 @@ func (s ConfirmationDeliveryMethod) strp() *string {
 	return &ss
 }
 
+func (s ConfirmationDeliveryMethod) Ptr() *ConfirmationDeliveryMethod {
+	return &s
+}
+
 type NotificationDeliveryMethod string
 
 const (
@@ -178,6 +202,10 @@ const (
 func (s NotificationDeliveryMethod) strp() *string {
 	ss := string(s)
 	return &ss
+}
+
+func (s NotificationDeliveryMethod) Ptr() *NotificationDeliveryMethod {
+	return &s
 }
 
 type Status string
@@ -234,6 +262,10 @@ const (
 func (s ViewerRole) strp() *string {
 	ss := string(s)
 	return &ss
+}
+
+func (s ViewerRole) Ptr() *ViewerRole {
+	return &s
 }
 
 type Document struct {
