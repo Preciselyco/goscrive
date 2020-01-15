@@ -35,3 +35,7 @@ func String(value string) *string {
 func UInt(value uint64) *uint64 {
 	return &value
 }
+
+func UInt32(value uint32) *uint32 {
+	return &value
+}
