@@ -405,7 +405,7 @@ const (
 	SignatoryFieldTypeSignature      SignatoryFieldType = "signature"
 	SignatoryFieldTypeCompanyName    SignatoryFieldType = "company"
 	SignatoryFieldTypeCompanyNumber  SignatoryFieldType = "company_number"
-	SigantoryFieldTypePersonalNumber SignatoryFieldType = "personal_number"
+	SignatoryFieldTypePersonalNumber SignatoryFieldType = "personal_number"
 	SignatoryFieldTypeCheckbox       SignatoryFieldType = "checkbox"
 	SignatoryFieldTypeRadiogroup     SignatoryFieldType = "radiogroup"
 	SignatoryFieldTypeCustomText     SignatoryFieldType = "text"
