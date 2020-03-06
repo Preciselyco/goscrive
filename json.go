@@ -7,7 +7,6 @@ import (
 
 func getJsonDecoder(body []byte) *json.Decoder {
 	dec := json.NewDecoder(bytes.NewReader(body))
-	dec.DisallowUnknownFields()
 	dec.UseNumber()
 	return dec
 }
