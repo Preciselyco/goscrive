@@ -38,6 +38,7 @@ type ScriveError struct {
 func (c *Client) parseResponseError(body []byte) (*ScriveError, error) {
 	se := &se{}
 	if err := parseJson(body, se); err != nil {
+		logInvalidJson(body)
 		return nil, err
 	}
 	if anyNil(se.ErrorType, se.ErrorMessage, se.HttpCode) {

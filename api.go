@@ -140,6 +140,7 @@ func (c *Client) expect(code int, respBody []byte, expectedCode int, out interfa
 		return nil
 	}
 	if err := parseJson(respBody, out); err != nil {
+		logInvalidJson(respBody)
 		return localError(err)
 	}
 	return nil
