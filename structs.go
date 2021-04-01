@@ -157,6 +157,8 @@ const (
 	AuthenticationMethodToSignSEBankID AuthenticationMethodToSign = seBankID
 	AuthenticationMethodToSignNOBankID AuthenticationMethodToSign = noBankID
 	AuthenticationMethodToSignDKNemID  AuthenticationMethodToSign = dkNemID
+	AuthenticationMethodToSignFITupas  AuthenticationMethodToSign = fiTupas
+	AuthenticationMethodToSignVerimi   AuthenticationMethodToSign = verimi
 )
 
 func (s AuthenticationMethodToSign) strp() *string {
