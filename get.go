@@ -2,6 +2,9 @@ package scrive
 
 import (
 	"fmt"
+	"io"
+	"net/http"
+	"strconv"
 )
 
 func (c *Client) GetDocument(documentID string) (*Document, *ScriveError) {
@@ -62,7 +65,33 @@ func (c *Client) GetDocumentList(p GetDocumentListParams) (*GetDocumentsListResp
 	return resp, se
 }
 
-func (c *Client) GetMainFile(documentID string) ([]byte, *ScriveError) {
+type FileResponse struct {
+	Length int64 // Length of file in bytes, iff reported by server `Content-Length` header. Otherwise -1
+	Body   io.ReadCloser
+}
+
+func (c *Client) GetMainFile(documentID string) (*FileResponse, *ScriveError) {
+	resp, err := c.getFile(fmt.Sprintf("documents/%s/files/main/file", documentID), nil)
+	if err != nil {
+		return nil, localError(err)
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, localError(fmt.Errorf("expected status code: 200, got: %d", resp.StatusCode))
+	}
+
+	lengthStr := resp.Header.Get("Content-Length")
+	length, err := strconv.ParseInt(lengthStr, 10, 64)
+	if err != nil {
+		length = -1
+	}
+
+	return &FileResponse{
+		Length: length,
+		Body:   resp.Body,
+	}, nil
+}
+
+func (c *Client) GetMainFileBytes(documentID string) ([]byte, *ScriveError) {
 	resp, se := c.gwb(
 		fmt.Sprintf("documents/%s/files/main/file", documentID),
 		nil,
