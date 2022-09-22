@@ -21,6 +21,7 @@ const (
 	seBankID        = "se_bankid"
 	noBankID        = "no_bankid"
 	dkNemID         = "dk_nemid"
+	dkMitID         = "dk_mitid"
 	fiTupas         = "fi_tupas"
 	verimi          = "verimi"
 	verimiQes       = "verimi_qes"
@@ -116,6 +117,7 @@ const (
 	AuthenticationMethodToViewSEBankID AuthenticationMethodToView = seBankID
 	AuthenticationMethodToViewNOBankID AuthenticationMethodToView = noBankID
 	AuthenticationMethodToViewDKNemID  AuthenticationMethodToView = dkNemID
+	AuthenticationMethodToViewDKMitID  AuthenticationMethodToView = dkMitID
 	AuthenticationMethodToViewFITupas  AuthenticationMethodToView = fiTupas
 	AuthenticationMethodToViewVerimi   AuthenticationMethodToView = verimi
 )
@@ -137,6 +139,7 @@ const (
 	AuthenticationMethodToViewArchivedSEBankID AuthenticationMethodToViewArchived = seBankID
 	AuthenticationMethodToViewArchivedNOBankID AuthenticationMethodToViewArchived = noBankID
 	AuthenticationMethodToViewArchivedDKNemID  AuthenticationMethodToViewArchived = dkNemID
+	AuthenticationMethodToViewArchivedDKMitID  AuthenticationMethodToViewArchived = dkMitID
 	AuthenticationMethodToViewArchivedFITupas  AuthenticationMethodToViewArchived = fiTupas
 	AuthenticationMethodToViewArchivedVerimi   AuthenticationMethodToViewArchived = verimi
 )
@@ -158,6 +161,7 @@ const (
 	AuthenticationMethodToSignSEBankID AuthenticationMethodToSign = seBankID
 	AuthenticationMethodToSignNOBankID AuthenticationMethodToSign = noBankID
 	AuthenticationMethodToSignDKNemID  AuthenticationMethodToSign = dkNemID
+	AuthenticationMethodToSignDKMitID  AuthenticationMethodToSign = dkMitID
 	AuthenticationMethodToSignFITupas  AuthenticationMethodToSign = fiTupas
 	AuthenticationMethodToSignVerimi   AuthenticationMethodToSign = verimiQes
 )
