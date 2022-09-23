@@ -107,6 +107,20 @@ func (c *Client) get(path string, headers *map[string]string) (*response, error)
 	return c.readResponse(resp)
 }
 
+func (c *Client) getFile(path string, headers *map[string]string) (*http.Response, error) {
+	cli := c.httpClient()
+	req, err := http.NewRequest("GET", c.composeURL(path), nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add(headerAuthorization, c.constructAuthHeaderPAC())
+	c.setReqHeaders(req, headers)
+	if c.Debug {
+		printDump(httputil.DumpRequest(req, false))
+	}
+	return cli.Do(req)
+}
+
 func (c *Client) post(path string, body io.ReadCloser, headers *map[string]string) (*response, error) {
 	if body != nil {
 		defer body.Close()
