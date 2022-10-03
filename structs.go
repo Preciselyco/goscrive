@@ -25,6 +25,7 @@ const (
 	fiTupas         = "fi_tupas"
 	verimi          = "verimi"
 	verimiQes       = "verimi_qes"
+	smartIDQes      = "smart_id_qes"
 )
 
 type strDef interface {
@@ -164,6 +165,7 @@ const (
 	AuthenticationMethodToSignDKMitID  AuthenticationMethodToSign = dkMitID
 	AuthenticationMethodToSignFITupas  AuthenticationMethodToSign = fiTupas
 	AuthenticationMethodToSignVerimi   AuthenticationMethodToSign = verimiQes
+	AuthenticationMethodToSignSmartID  AuthenticationMethodToSign = smartIDQes
 )
 
 func (s AuthenticationMethodToSign) strp() *string {
