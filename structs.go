@@ -41,12 +41,21 @@ const (
 	SignatoryRoleApprover     SignatoryRole = approver
 )
 
-func (s *SignatoryRole) Strp() *string {
+func (s SignatoryRole) strp() *string {
+	ss := string(s)
+	return &ss
+}
+
+func (s SignatoryRole) Strp() *string {
+	return s.strp()
+}
+
+// SignatoryRoleStrpPtr returns nil if s is nil, otherwise returns a pointer to the string value of s.
+func SignatoryRoleStrpPtr(s *SignatoryRole) *string {
 	if s == nil {
 		return nil
 	}
-	ss := string(*s)
-	return &ss
+	return s.Strp()
 }
 
 func (s SignatoryRole) Ptr() *SignatoryRole {
@@ -164,6 +173,7 @@ const (
 	AuthenticationMethodToSignStandard    AuthenticationMethodToSign = standard
 	AuthenticationMethodToSignSmsPin      AuthenticationMethodToSign = smsPin
 	AuthenticationMethodToSignSEBankID    AuthenticationMethodToSign = seBankID
+	// Deprecated: AuthenticationMethodToSignNOBankID is now view-only; use AuthenticationMethodToSignNOBankIDQes for signing.
 	AuthenticationMethodToSignNOBankID    AuthenticationMethodToSign = noBankID
 	AuthenticationMethodToSignNOBankIDQes AuthenticationMethodToSign = noBankIDQes
 	AuthenticationMethodToSignDKNemID     AuthenticationMethodToSign = dkNemID
