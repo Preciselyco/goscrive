@@ -20,6 +20,7 @@ const (
 	smsPin          = "sms_pin"
 	seBankID        = "se_bankid"
 	noBankID        = "no_bankid"
+	noBankIDQes     = "no_bankid_qes"
 	dkNemID         = "dk_nemid"
 	dkMitID         = "dk_mitid"
 	fiTupas         = "fi_tupas"
@@ -43,6 +44,18 @@ const (
 func (s SignatoryRole) strp() *string {
 	ss := string(s)
 	return &ss
+}
+
+func (s SignatoryRole) Strp() *string {
+	return s.strp()
+}
+
+// SignatoryRoleStrpPtr returns nil if s is nil, otherwise returns a pointer to the string value of s.
+func SignatoryRoleStrpPtr(s *SignatoryRole) *string {
+	if s == nil {
+		return nil
+	}
+	return s.Strp()
 }
 
 func (s SignatoryRole) Ptr() *SignatoryRole {
@@ -157,15 +170,17 @@ func (s AuthenticationMethodToViewArchived) Ptr() *AuthenticationMethodToViewArc
 type AuthenticationMethodToSign string
 
 const (
-	AuthenticationMethodToSignStandard AuthenticationMethodToSign = standard
-	AuthenticationMethodToSignSmsPin   AuthenticationMethodToSign = smsPin
-	AuthenticationMethodToSignSEBankID AuthenticationMethodToSign = seBankID
-	AuthenticationMethodToSignNOBankID AuthenticationMethodToSign = noBankID
-	AuthenticationMethodToSignDKNemID  AuthenticationMethodToSign = dkNemID
-	AuthenticationMethodToSignDKMitID  AuthenticationMethodToSign = dkMitID
-	AuthenticationMethodToSignFITupas  AuthenticationMethodToSign = fiTupas
-	AuthenticationMethodToSignVerimi   AuthenticationMethodToSign = verimiQes
-	AuthenticationMethodToSignSmartID  AuthenticationMethodToSign = smartIDQes
+	AuthenticationMethodToSignStandard    AuthenticationMethodToSign = standard
+	AuthenticationMethodToSignSmsPin      AuthenticationMethodToSign = smsPin
+	AuthenticationMethodToSignSEBankID    AuthenticationMethodToSign = seBankID
+	// Deprecated: AuthenticationMethodToSignNOBankID is now view-only; use AuthenticationMethodToSignNOBankIDQes for signing.
+	AuthenticationMethodToSignNOBankID    AuthenticationMethodToSign = noBankID
+	AuthenticationMethodToSignNOBankIDQes AuthenticationMethodToSign = noBankIDQes
+	AuthenticationMethodToSignDKNemID     AuthenticationMethodToSign = dkNemID
+	AuthenticationMethodToSignDKMitID     AuthenticationMethodToSign = dkMitID
+	AuthenticationMethodToSignFITupas     AuthenticationMethodToSign = fiTupas
+	AuthenticationMethodToSignVerimi      AuthenticationMethodToSign = verimiQes
+	AuthenticationMethodToSignSmartID     AuthenticationMethodToSign = smartIDQes
 )
 
 func (s AuthenticationMethodToSign) strp() *string {
