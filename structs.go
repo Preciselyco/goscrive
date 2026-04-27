@@ -27,7 +27,8 @@ const (
 	verimi          = "verimi"
 	verimiQes       = "verimi_qes"
 	smartIDQes      = "smart_id_qes"
-	globalQes       = "global_qes"
+	globalQes       = "scrive_qes_global"
+	itsmeQes        = "itsme_qes"
 )
 
 type strDef interface {
@@ -183,6 +184,7 @@ const (
 	AuthenticationMethodToSignVerimi      AuthenticationMethodToSign = verimiQes
 	AuthenticationMethodToSignSmartID     AuthenticationMethodToSign = smartIDQes
 	AuthenticationMethodToSignGlobalQES   AuthenticationMethodToSign = globalQes
+	AuthenticationMethodToSignItsmeQES    AuthenticationMethodToSign = itsmeQes
 )
 
 func (s AuthenticationMethodToSign) strp() *string {
