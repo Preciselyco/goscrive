@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httputil"
+	"strings"
 	"time"
 )
 
@@ -16,8 +17,16 @@ const (
 )
 
 type Config struct {
+	// APIRoot is either a bare hostname ("api-scrive.com" — implicitly
+	// https://) or a full base URL with scheme ("http://localhost:8080",
+	// useful for tests against an httptest server).
 	APIRoot *string
 	PAC     *PAC
+	// HTTPClient overrides the default *http.Client used for outgoing
+	// requests. Useful for plugging in httptest.NewServer().Client() or
+	// a transport with custom retries/timeouts. When nil, a default
+	// client with sensible production timeouts is used.
+	HTTPClient *http.Client
 }
 
 type Client struct {
@@ -39,10 +48,14 @@ func NewClient(c Config) (*Client, error) {
 	} else {
 		client.config.APIRoot = c.APIRoot
 	}
+	client.config.HTTPClient = c.HTTPClient
 	return client, nil
 }
 
 func (c *Client) httpClient() *http.Client {
+	if c.config.HTTPClient != nil {
+		return c.config.HTTPClient
+	}
 	return &http.Client{
 		Timeout: 30 * time.Second,
 		Transport: &http.Transport{
@@ -55,7 +68,14 @@ func (c *Client) httpClient() *http.Client {
 }
 
 func (c *Client) composeURL(path string) string {
-	return fmt.Sprintf("https://%s/api/v2/%s", *c.config.APIRoot, path)
+	root := *c.config.APIRoot
+	// Allow APIRoot to include a scheme (e.g. "http://localhost:1234" for
+	// tests). Bare hostnames keep the historical https:// default so
+	// existing callers don't need to change.
+	if strings.Contains(root, "://") {
+		return fmt.Sprintf("%s/api/v2/%s", strings.TrimRight(root, "/"), path)
+	}
+	return fmt.Sprintf("https://%s/api/v2/%s", root, path)
 }
 
 func printDump(d []byte, err error) {
