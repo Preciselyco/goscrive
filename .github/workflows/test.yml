@@ -1,0 +1,30 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: go vet
+        run: go vet ./...
+      - name: go build
+        run: go build ./...
+      - name: go test
+        # Integration tests that hit the real Scrive API self-skip when
+        # CLIENT_CREDENTIALS_IDENTIFIER / TOKEN_CREDENTIALS_IDENTIFIER are
+        # unset (see common_test.go::hasScriveCredentials), so this runs
+        # the unit tests on every PR without needing credentials.
+        run: go test -race -count=1 ./...

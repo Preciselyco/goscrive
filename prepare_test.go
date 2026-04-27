@@ -10,14 +10,14 @@ import (
 )
 
 func TestNewDocument(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	doc, se := cli.NewDocument(scrive.NewDocumentParams{})
 	failIfScriveE(t, "TestPrepare: cli.NewDocument", se)
 	log("got document response: %s", marshalIndentFail(t, "TestNewDocument: document response", doc))
 }
 
 func TestNewDocumentWithDoc(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	documentBody, err := ioutil.ReadFile("testdata/document.pdf")
 	failIfE(t, "TestNewDocumentWithDoc: readFile", err)
 	saved := true
@@ -31,7 +31,7 @@ func TestNewDocumentWithDoc(t *testing.T) {
 }
 
 func TestNewDocumentFromTemplate(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	documentID := os.Getenv("TEST_TEMPLATE_ID")
 	doc, se := cli.NewDocumentFromTemplate(scrive.NewDocumentFromTemplateParams{
 		DocumentID: documentID,
@@ -41,7 +41,7 @@ func TestNewDocumentFromTemplate(t *testing.T) {
 }
 
 func TestDocumentClone(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	documentID := os.Getenv("TEST_TEMPLATE_ID")
 	doc, se := cli.CloneDocument(scrive.CloneDocumentParams{
 		DocumentID: documentID,
@@ -51,7 +51,7 @@ func TestDocumentClone(t *testing.T) {
 }
 
 func TestDocumentUpdate(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	documentID := os.Getenv("TEST_TEMPLATE_ID")
 	newTitle := "some nice new title"
 	doc, se := cli.UpdateDocument(scrive.UpdateDocumentParams{
@@ -66,7 +66,7 @@ func TestDocumentUpdate(t *testing.T) {
 }
 
 func TestSetAttachments(t *testing.T) {
-	cli := getClient()
+	cli := getClient(t)
 	documentID := os.Getenv("TEST_TEMPLATE_ID")
 	attachment, err := ioutil.ReadFile("testdata/document.pdf")
 	failIfE(t, "readFile", err)

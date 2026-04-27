@@ -15,9 +15,10 @@ var envOnce sync.Once
 
 func readEnv() {
 	envOnce.Do(func() {
-		if err := godotenv.Load(); err != nil {
-			panic(err)
-		}
+		// .env is optional — fall back to the actual process environment
+		// (set by CI secrets, the developer's shell, etc.) when the file
+		// isn't present.
+		_ = godotenv.Load()
 	})
 }
 
@@ -34,7 +35,21 @@ func getConfig() (scrive.Config, error) {
 	return config, nil
 }
 
-func getClient() *scrive.Client {
+// hasScriveCredentials returns true when all four PAC env vars are set, so the
+// integration tests have something to authenticate with.
+func hasScriveCredentials() bool {
+	readEnv()
+	return os.Getenv("CLIENT_CREDENTIALS_IDENTIFIER") != "" &&
+		os.Getenv("CLIENT_CREDENTIALS_SECRET") != "" &&
+		os.Getenv("TOKEN_CREDENTIALS_IDENTIFIER") != "" &&
+		os.Getenv("TOKEN_CREDENTIALS_SECRET") != ""
+}
+
+func getClient(t *testing.T) *scrive.Client {
+	t.Helper()
+	if !hasScriveCredentials() {
+		t.Skip("Scrive PAC credentials are not configured; set CLIENT_CREDENTIALS_IDENTIFIER/SECRET and TOKEN_CREDENTIALS_IDENTIFIER/SECRET to run integration tests")
+	}
 	config, err := getConfig()
 	if err != nil {
 		panic(err)
