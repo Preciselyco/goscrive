@@ -27,6 +27,7 @@ const (
 	verimi          = "verimi"
 	verimiQes       = "verimi_qes"
 	smartIDQes      = "smart_id_qes"
+	globalQes       = "global_qes"
 )
 
 type strDef interface {
@@ -170,9 +171,9 @@ func (s AuthenticationMethodToViewArchived) Ptr() *AuthenticationMethodToViewArc
 type AuthenticationMethodToSign string
 
 const (
-	AuthenticationMethodToSignStandard    AuthenticationMethodToSign = standard
-	AuthenticationMethodToSignSmsPin      AuthenticationMethodToSign = smsPin
-	AuthenticationMethodToSignSEBankID    AuthenticationMethodToSign = seBankID
+	AuthenticationMethodToSignStandard AuthenticationMethodToSign = standard
+	AuthenticationMethodToSignSmsPin   AuthenticationMethodToSign = smsPin
+	AuthenticationMethodToSignSEBankID AuthenticationMethodToSign = seBankID
 	// Deprecated: AuthenticationMethodToSignNOBankID is now view-only; use AuthenticationMethodToSignNOBankIDQes for signing.
 	AuthenticationMethodToSignNOBankID    AuthenticationMethodToSign = noBankID
 	AuthenticationMethodToSignNOBankIDQes AuthenticationMethodToSign = noBankIDQes
@@ -181,6 +182,7 @@ const (
 	AuthenticationMethodToSignFITupas     AuthenticationMethodToSign = fiTupas
 	AuthenticationMethodToSignVerimi      AuthenticationMethodToSign = verimiQes
 	AuthenticationMethodToSignSmartID     AuthenticationMethodToSign = smartIDQes
+	AuthenticationMethodToSignGlobalQES   AuthenticationMethodToSign = globalQes
 )
 
 func (s AuthenticationMethodToSign) strp() *string {
