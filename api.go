@@ -146,7 +146,11 @@ func (c *Client) expect(code int, respBody []byte, expectedCode int, out interfa
 	if code != expectedCode {
 		se, err := c.parseResponseError(respBody)
 		if err != nil {
-			return localError(err)
+			// The response body wasn't a Scrive JSON error envelope. Surface
+			// the actual HTTP status code and the (truncated) body so callers
+			// can debug 401/404/etc. responses that come back as plain text
+			// or HTML — instead of just a JSON parse error with HttpCode -1.
+			return unparseableResponseError(code, respBody)
 		}
 		return se
 	}

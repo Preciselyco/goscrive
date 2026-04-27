@@ -2,6 +2,7 @@ package scrive
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/pkg/errors"
 )
@@ -21,7 +22,12 @@ const (
 	ErrorTypeDocumentObjectVersionMismatch ErrorType = "document_object_version_mismatch"
 	ErrorTypeSignatoryStateError           ErrorType = "signatory_state_error"
 	ErrorTypeLocal                         ErrorType = "local_error"
+	ErrorTypeUnparseableResponse           ErrorType = "unparseable_response"
 )
+
+// maxUnparseableBodyLen caps how many bytes of a non-JSON response body get
+// embedded in the error message, to avoid dumping multi-megabyte HTML pages.
+const maxUnparseableBodyLen = 512
 
 type se struct {
 	ErrorType    *ErrorType `json:"error_type"`
@@ -56,6 +62,24 @@ func localError(err error) *ScriveError {
 		ErrorType:    ErrorTypeLocal,
 		ErrorMessage: err.Error(),
 		HttpCode:     -1,
+	}
+}
+
+// unparseableResponseError wraps a non-JSON response body together with the
+// real HTTP status code, so callers can debug 401/404/etc. responses that
+// come back as plain text or HTML without losing the status or the body.
+func unparseableResponseError(httpCode int, body []byte) *ScriveError {
+	msg := strings.TrimSpace(string(body))
+	if len(msg) > maxUnparseableBodyLen {
+		msg = msg[:maxUnparseableBodyLen] + "…"
+	}
+	if msg == "" {
+		msg = "(empty response body)"
+	}
+	return &ScriveError{
+		ErrorType:    ErrorTypeUnparseableResponse,
+		ErrorMessage: msg,
+		HttpCode:     httpCode,
 	}
 }
 
